@@ -1,0 +1,266 @@
+.wrapper {
+
+    margin:auto;
+    font-size: 1em;
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    
+}
+h1 {
+    grid-column: 4/10;
+    text-align: center;
+}
+.inputTodo {
+    width:100%;
+    box-sizing:border-box ;
+    padding:4px 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-bottom: 3%;
+    color: black;
+}
+
+.todo {
+    display: flex;
+    /*background: -webkit-linear-gradient(90deg,#000853,#1cb5e0);  background: linear-gradient(90deg,#000853,#1cb5e0);*/
+    /*background: -webkit-linear-gradient(90deg,#ff0000,#ffa200);  background: linear-gradient(90deg,#ff0000,#ffa200);*/
+    background: -webkit-linear-gradient(90deg,#65acd0,#0c4160); /* Chrome 10-25, Safari 5.1-6 */ background: linear-gradient(90deg,#0c4160,#65acd0); 
+    border-radius: 8px;
+    border: 1px solid black;
+    margin-bottom: 3%;
+    box-sizing: border-box;
+    padding: 2% 0;
+}
+
+/*Сustom chekbox////////////////////////////////////////////////////*/
+  .container {
+    position: relative;
+    width:15px;
+    margin-bottom: 12px;
+    margin-right: 5%;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+label {
+    align-self: center;
+    margin:0 2%;
+}
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 3px; 
+    height: 8px; 
+    border: solid white; 
+    border-width: 0 2px 2px 0; 
+    transform: rotate(45deg);
+  }
+
+/*/////////////////////////////////////////////////////////////*/
+.todo div,input,strong{
+    color: white;
+}
+form {
+    grid-column: 4/10;
+}
+form > button {
+    width:100%;
+    padding:4px ;
+    border-radius: 15px;
+    border: solid 1px black;
+    background-color: #0c4160;
+    color: white;
+}
+form > button:hover{
+    background-color:#146b9e;
+    cursor: pointer;
+}
+.deleteButton {
+    display: none;
+    background-color: rgba(145, 3, 3, 0);
+    color: white;
+    border-radius: 15px;
+    /* grid-column: 12/13; */
+    grid-row: 1/2;
+    border: none;
+}
+.editButton {
+    display:none;
+    /* grid-column: 11/12; */
+    grid-row: 1/2;
+    background-color:rgba(0, 255, 255, 0);
+    border: none;
+}
+.closeEditButton {
+    display: block;
+    float:right;
+    cursor: pointer;
+    background-color:rgba(0, 255, 255, 0);
+    border: none;
+    /* grid-column: 10/11; */
+    grid-row: 1/2;
+}
+.buttons{
+    grid-column: 9/13;
+    grid-row: 1/2;
+}
+.editTodoName {
+    grid-column: 1/8;
+    color:black;
+}
+.todoCreatedDate {
+    font-size: 0.8em;
+    display: block;
+    float:right;
+    color:white;
+    grid-column: 8/13;
+    grid-row: 1/2;
+    text-align: end;
+}
+.todoHead {
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    gap:5%;
+    grid-column: 1/13;
+}
+
+.todoElement {
+    display:grid;
+    grid-template-columns: repeat(12,1fr);
+    flex-direction: column;
+    overflow-wrap: break-word;
+    width: 85%;
+}
+.todoName {
+    display: inline-block;
+    grid-column: 1/8;
+}
+.todoBody {
+    margin-top: 2%;
+    color: rgb(69, 59, 59);
+    overflow-wrap: break-word;
+    grid-column: 1/13;
+}
+ul {
+    padding-left: 0;
+    margin-top: 2%;
+}
+li {
+    list-style-type: none;
+}
+li:hover .deleteButton {
+    display: block;
+    float:right;
+    cursor: pointer;
+}
+li:hover .editButton {
+    display: block;
+    float:right;
+   cursor: pointer;
+}
+
+li:hover .todoCreatedDate {
+    display: none;
+}
+.filterTodo p {
+    display: inline-block;
+    margin : 0;
+}
+.todoSection {
+    margin-top: 10%;
+    grid-column: 4/10;
+}
+
+
+@media (max-width: 450px) {
+    h1 {
+            grid-column: 2/12;
+            text-align: center;
+        }
+        .todoSection {
+            margin-top: 10%;
+            grid-column: 2 / 12;
+        }
+        form {
+            grid-column: 2 / 12;
+        }
+
+}
+@media (min-width: 1200px) {
+    h1 {
+            grid-column: 5/9;
+            text-align: center;
+        }
+        .todoSection {
+            margin-top: 10%;
+            grid-column: 5/9;
+        }
+        form {
+            grid-column: 5/9;
+        }
+
+}
+
+@media (max-width: 655px) {
+    .buttons{
+        grid-column: 8/13;
+    }
+    .editTodoName {
+        grid-column: 1/7;
+        color:black;
+    }
+}
+@media (max-width: 510px) {
+    .todoCreatedDate {
+
+        grid-column: 9/13;
+        grid-row: 1/2;
+    }
+    .buttons{
+        grid-column: 8/13;
+        
+    }
+    .deleteButton{
+        padding:1px 4px 
+    }
+    .editButton{
+        padding:1px 4px 
+    }
+    .closeEditButton{
+        padding:1px 4px 
+    }
+    .editTodoName {
+        grid-column: 1/8;
+        color:black;
+    }
+}
