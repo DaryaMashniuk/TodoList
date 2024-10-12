@@ -1,7 +1,7 @@
 import React from "react";
-import edit from "./assets/edit.png";
-import bin from "./assets/delete.png";
-import close from "./assets/close.png";
+import edit from "../assets/edit.png";
+import bin from "../assets/delete.png";
+import close from "../assets/close.png";
 
 class Todo extends React.PureComponent {
     render() {
@@ -12,6 +12,7 @@ class Todo extends React.PureComponent {
         handleTodoDelete,
         handleEditTodo,
         handleCloseEditTodo,
+        todoImportancy,
         editingIndex,
         handleTempNameChange,
         tempName,
@@ -69,6 +70,8 @@ class Todo extends React.PureComponent {
               </div>
             </div>
             <div className="todoBody">{todo.body}</div>
+            {todoImportancy ?<div className="severity">{todoImportancy}</div> 
+            :""}
           </div>
         </li>
       );

@@ -264,3 +264,14 @@ li:hover .todoCreatedDate {
         color:black;
     }
 }
+
+
+
+.searchTodo {
+    color: black;
+}
+
+.severity {
+    background-color: gray;
+    padding:1px 5px;
+}
