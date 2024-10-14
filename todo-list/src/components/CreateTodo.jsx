@@ -75,11 +75,11 @@ class CreateTodo extends React.Component {
           placeholder="Описание задачи"
           className="inputTodo"
         />
-        <div>
+        <div className="severityCreation">
           <p>Важность:</p>
           <button
             type="button"
-            className="severityButton"
+            className="severityButton urgently"
             style={{
               backgroundColor:
                 todoImportancy === "urgently" ? "#0c4160" : "white",
@@ -90,7 +90,7 @@ class CreateTodo extends React.Component {
           </button>
           <button
             type="button"
-            className="severityButton"
+            className="severityButton average"
             style={{
               backgroundColor:
                 todoImportancy === "average" ? "#0c4160" : "white",
@@ -101,10 +101,10 @@ class CreateTodo extends React.Component {
           </button>
           <button
             type="button"
-            className="severityButton"
+            className="severityButton notUrgently"
             style={{
               backgroundColor:
-                todoImportancy === "notUrgently" ? "#0c4160" : "white",
+                todoImportancy === "notUrgently" ? "#146b9e" : "white",
             }}
             onClick={() => this.handleTodoImportancy("notUrgently")}
           >

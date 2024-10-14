@@ -4,14 +4,14 @@ import Todo from "./Todo";
 import Filter from "./Filter";
 import CreateTodo from "./CreateTodo";
 import { v4 as uuidv4 } from "uuid";
-
+import { generateTodos } from "../utils/generate-todos";
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       allTodos: [
         {
-          id: uuidv4,
+          id: uuidv4(),
           name: "Новая задача",
           body: "Описание новой задачи",
           checked: false,
@@ -27,13 +27,17 @@ class App extends React.Component {
       filterImportancy: [],
       isFilterUnfinishedOn: false,
       editingIndex: null,
-      tempName: "",
+      tempNames: {},
       todoSearchValue: "",
     };
   }
 
-  componentDidMount() {}
 
+  generateTodos = ()=> {
+    this.setState({
+          allTodos: generateTodos(500),
+        });
+  }
   handleFilterUnfinished = (e) => {
     this.setState({ isFilterUnfinishedOn: e.target.checked });
   };
@@ -92,54 +96,58 @@ class App extends React.Component {
     }));
   };
 
-  handleTodoChecked = (index) => (e) => {
-    const newTodo = {
-      ...this.state.allTodos[index],
-      checked: e.target.checked,
-    };
+  handleTodoChecked = (id) => (e) => {
     const newAllTodos = this.state.allTodos
-      .map((todo, i) => (i === index ? newTodo : todo))
+      .map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, checked: e.target.checked };
+        }
+        return todo;
+      })
       .sort((a, b) => a.checked - b.checked);
+
     this.setState({ allTodos: newAllTodos });
   };
 
-  handleTodoDelete = (index) => (e) => {
-    const newAllTodos = this.state.allTodos.filter((todo, i) => {
-      return i !== index;
-    });
-    this.setState({
-      allTodos: newAllTodos,
-    });
+  handleTodoDelete = (id) => () => {
+    const newAllTodos = this.state.allTodos.filter((todo) => todo.id !== id);
+    this.setState({ allTodos: newAllTodos });
   };
 
-  handleEditTodo = (index) => {
-    if (this.state.editingIndex === index) {
-      const newAllTodos = [...this.state.allTodos];
-      newAllTodos[index].name = this.state.tempName;
+  handleEditTodo = (id) => {
+    const { allTodos, editingIndex, tempNames } = this.state;
+    if (editingIndex === id) {
+      const newAllTodos = allTodos.map((todo) =>
+        todo.id === id ? { ...todo, name: tempNames[id] || todo.name } : todo
+      );
       this.setState({
         allTodos: newAllTodos,
-        editingIndex: null,
-        tempName: "",
+        editingIndex: null, 
+        tempNames: { ...this.state.tempNames, [id]: "" },
       });
     } else {
+      const todoToEdit = allTodos.find((todo) => todo.id === id);
       this.setState({
-        editingIndex: index,
-        tempName: this.state.allTodos[index].name,
+        editingIndex: id,
+        tempNames: { ...this.state.tempNames, [id]: todoToEdit.name },
       });
     }
   };
 
-  handleCloseEditTodo = (index) => {
+  handleCloseEditTodo = () => {
     this.setState({
       editingIndex: null,
-      tempName: "",
     });
   };
 
-  handleTempNameChange = (e) => {
-    this.setState({
-      tempName: e.target.value,
-    });
+  handleTempNameChange = (id) => (e) => {
+    const { value } = e.target;
+    this.setState((prevState) => ({
+      tempNames: {
+        ...prevState.tempNames,
+        [id]: value,
+      },
+    }));
   };
 
   render() {
@@ -147,40 +155,40 @@ class App extends React.Component {
       (todos, filter) => filter.call(this, todos),
       this.state.allTodos
     );
-  
+
     return (
       <div className="wrapper">
         <h1>Todo list</h1>
         <CreateTodo onHandleTodoAdd={this.handleTodoAdd} />
+        <div>
+        <button className="generateTodos" onClick={this.generateTodos} >Сгенерировать 1000 задач</button></div>
         <div className="todoSection">
           <Filter
             onFilterUnfinished={this.handleFilterUnfinished}
             onFilterTodoSearch={this.handleFilterTodoSearch}
             onFilterImportancy={this.handleFilterImportancy}
             todoSearchValue={this.state.todoSearchValue}
-            filterImportancy={this.state.filterImportancy} // Передаем значение фильтра
+            filterImportancy={this.state.filterImportancy}
           />
           <ul>
-            {filteredTodos.length > 0 ? ( // Проверка на наличие отфильтрованных задач
-              filteredTodos.map((todo, index) => {
+            {filteredTodos.length > 0 ? ( 
+              filteredTodos.map((todo) => {
                 return (
                   <Todo
-                    todo={todo}
-                    index={index}
-                    onTodoChecked={this.handleTodoChecked(index)}
-                    handleTodoDelete={this.handleTodoDelete(index)}
-                    handleEditTodo={this.handleEditTodo}
-                    handleTempNameChange={this.handleTempNameChange}
-                    handleCloseEditTodo={this.handleCloseEditTodo}
-                    editingIndex={this.state.editingIndex}
-                    todoImportancy={todo.todoImportancy}
-                    tempName={this.state.tempName}
-                    key={todo.id}
-                  />
+                  key={todo.id}
+                  todo={todo}
+                  onTodoChecked={this.handleTodoChecked(todo.id)}
+                  handleTodoDelete={this.handleTodoDelete(todo.id)}
+                  handleEditTodo={this.handleEditTodo}
+                  handleTempNameChange={this.handleTempNameChange(todo.id)}
+                  handleCloseEditTodo={this.handleCloseEditTodo}
+                  editingIndex={this.state.editingIndex}
+                  tempName={this.state.tempNames[todo.id] || todo.name}
+                />
                 );
               })
             ) : (
-              <div>Нет задач, подходящих запросу</div> // Сообщение о том, что нет подходящих задач
+              <div>Нет задач, подходящих запросу</div>
             )}
           </ul>
         </div>

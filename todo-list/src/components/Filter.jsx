@@ -20,10 +20,11 @@ class Filter extends React.PureComponent {
             type="search"
             value={todoSearchValue}
             onChange={onFilterTodoSearch}
+            placeholder="Введите название"
             className="searchTodo"
           />
-          <div className="importancyTodo">
-            <p> Важность </p>
+          <div className="severityFilter">
+            <p> Важность: </p>
             <label htmlFor="urgently">Срочно</label>
             <input
               type="checkbox"
