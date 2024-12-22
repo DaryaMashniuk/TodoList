@@ -1,3 +1,6 @@
+body{
+    font-size: 12px;
+}
 .wrapper {
 
     margin:auto;
@@ -7,8 +10,9 @@
     
 }
 h1 {
-    grid-column: 4/10;
+    grid-column: 3/11;
     text-align: center;
+    font-size: 3em;
 }
 .inputTodo {
     width:100%;
@@ -20,6 +24,9 @@ h1 {
     color: black;
 }
 
+p{
+    font-size: 1.5em;
+}
 .todo {
     display: flex;
     /*background: -webkit-linear-gradient(90deg,#000853,#1cb5e0);  background: linear-gradient(90deg,#000853,#1cb5e0);*/
@@ -30,6 +37,18 @@ h1 {
     margin-bottom: 3%;
     box-sizing: border-box;
     padding: 2% 0;
+}
+label{
+    font-size: 1.25em;
+}
+p{
+    font-size: 1.5em;
+}
+li{
+    font-size: 1.5em;
+}
+button{
+    font-size: 1.25em;
 }
 
 /*Сustom chekbox////////////////////////////////////////////////////*/
@@ -91,7 +110,7 @@ label {
     color: white;
 }
 form {
-    grid-column: 4/10;
+    grid-column: 3/11;
 }
 form > button {
     width:100%;
@@ -131,19 +150,19 @@ form > button:hover{
     grid-row: 1/2;
 }
 .buttons{
-    grid-column: 9/13;
+    grid-column: 8/14;
     grid-row: 1/2;
 }
 .editTodoName {
-    grid-column: 1/8;
+    grid-column: 1/9;
     color:black;
 }
 .todoCreatedDate {
-    font-size: 0.8em;
+    font-size: 1em;
     display: block;
     float:right;
     color:white;
-    grid-column: 8/13;
+    grid-column: 7/14;
     grid-row: 1/2;
     text-align: end;
 }
@@ -151,7 +170,7 @@ form > button:hover{
     display: grid;
     grid-template-columns: repeat(12,1fr);
     gap:5%;
-    grid-column: 1/13;
+    grid-column: 1/14;
 }
 
 .todoElement {
@@ -169,7 +188,7 @@ form > button:hover{
     margin-top: 2%;
     color: rgb(69, 59, 59);
     overflow-wrap: break-word;
-    grid-column: 1/13;
+    grid-column: 1/14;
 }
 ul {
     padding-left: 0;
@@ -198,9 +217,16 @@ li:hover .todoCreatedDate {
 }
 .todoSection {
     margin-top: 10%;
-    grid-column: 4/10;
+    grid-column: 3/11;
 }
+.generateTodos{
+    margin-left:5%;
+}
+input{
+    font-size: 1.25em;
+    padding:1%;
 
+}
 
 @media (max-width: 450px) {
     .generateTodos{
@@ -235,6 +261,9 @@ li:hover .todoCreatedDate {
 }
 
 @media (max-width: 655px) {
+    body{
+        font-size: 10px;
+    }
     .buttons{
         grid-column: 8/13;
     }
@@ -244,6 +273,26 @@ li:hover .todoCreatedDate {
     }
 }
 @media (max-width: 510px) {
+    h1{
+       text-align: center;
+       grid-column: 1/13; 
+    }
+    form{
+        grid-column: 1/13;
+        width: 80%;
+        margin:auto;
+
+    }
+    .generateTodos{
+        margin: 7% 0;
+        margin-left:50px;
+    }
+
+    .todoSection{
+        grid-column: 1/13;
+        width: 80%;
+        margin:auto;
+    }
     .todoCreatedDate {
 
         grid-column: 9/13;
@@ -267,6 +316,22 @@ li:hover .todoCreatedDate {
         color:black;
     }
 }
+@media (max-width: 380px) {
+    body{
+        font-size: 9px;
+    }
+    .generateTodos{
+        margin: 7% 0;
+        margin-left:40px;
+    }
+}
+@media (max-width: 310px) {
+    body{
+        font-size: 8px;
+    }
+
+}
+
 
 
 
@@ -281,23 +346,19 @@ li:hover .todoCreatedDate {
 
 .severityCreation p{
     display: inline-block;
-    font-size: 14px;
 }
 .severityCreation button {
-    font-size: 12px;
     margin-right: 2%;
 }
 .severityFilter p{
     display: inline-block;
-    font-size: 14px;
     margin:2% 0;
 }
 .severityFilter label {
-    font-size: 14px;
     margin-right: 0;
 }
 .severityFilter input {
-    width:10px;
+    width:5%;
 }
 .todoFilters{
     grid-column: 2/4;
